@@ -1,0 +1,30 @@
+CREATE TABLE Products (
+    id INT AUTO_INCREMENT PRIMARY KEY,  
+    name VARCHAR(100) NOT NULL,      	
+    description TEXT,                	
+    price DECIMAL(10, 2) NOT NULL,   	
+    category VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Inventory (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	product_id INT,
+	quantity INT NOT NULL,
+	location VARCHAR(100),
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	FOREIGN	KEY	(product_id) REFERENCES Products(id) ON DELETE CASCADE
+	
+);
+
+CREATE TABLE Orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,             
+    product_id INT,                 
+    quantity INT NOT NULL,                   
+    order_date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES Products(id) ON DELETE CASCADE
+);
